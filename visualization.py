@@ -323,7 +323,7 @@ def plot_vol_heatmap(
 
     fig = go.Figure(go.Heatmap(
         z=price_grid,
-        x=[f"${s:.0f}" for s in spots],
+        x=spots,
         y=[f"{v:.0%}" for v in vols],
         colorscale=[[0.0, "#0E1117"], [0.5, "#1F3A6E"], [1.0, ACCENT_BLUE]],
         showscale=True,
@@ -333,13 +333,15 @@ def plot_vol_heatmap(
         ),
     ))
 
-    fig.add_vline(x=f"${strike:.0f}", line=dict(color=MUTED, width=1.5, dash="dash"),
+    fig.add_vline(x=strike, line=dict(color=MUTED, width=1.5, dash="dash"),
                   annotation_text="Strike", annotation_font=dict(color=MUTED, size=10))
 
     layout = _base_layout(
         f"Option Price — Spot × Volatility Heatmap ({option_type.capitalize()})", height=420
     )
     layout["xaxis"]["title"] = "Spot Price ($)"
+    layout["xaxis"]["tickprefix"] = "$"
+    layout["xaxis"]["tickformat"] = ",.0f"
     layout["yaxis"]["title"] = "Implied Volatility"
     fig.update_layout(**layout)
     return fig
