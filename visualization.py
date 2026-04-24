@@ -137,9 +137,9 @@ def plot_football_field(ranges: List[dict], current_price: float) -> go.Figure:
 
     if current_price and current_price > 0:
         fig.add_vline(x=current_price, line=dict(color=ACCENT_BLUE, width=2, dash="dash"),
-                      annotation_text=f"Current: ${current_price:,.2f}",
-                      annotation_font=dict(color=ACCENT_BLUE, size=10, family=FONT_FAMILY),
-                      annotation_position="top")
+                      annotation=dict(text=f"Current: ${current_price:,.2f}",
+                                      font=dict(color=ACCENT_BLUE, size=10, family=FONT_FAMILY),
+                                      position="top"))
 
     layout = _base_layout("Football Field — Valuation Summary",
                           height=max(300, 80 * len(ranges) + 100))
@@ -173,15 +173,15 @@ def plot_monte_carlo_histogram(
         (p90, "P90", RED, "dot"),
     ]:
         fig.add_vline(x=val, line=dict(color=color, width=1.5, dash=dash),
-                      annotation_text=f"{label}: ${val:,.1f}",
-                      annotation_font=dict(color=color, size=9, family=FONT_FAMILY),
-                      annotation_position="top")
+                      annotation=dict(text=f"{label}: ${val:,.1f}",
+                                      font=dict(color=color, size=9, family=FONT_FAMILY),
+                                      position="top"))
 
     if current_price and current_price > 0:
         fig.add_vline(x=current_price, line=dict(color="#FFFFFF", width=2, dash="longdash"),
-                      annotation_text=f"Current: ${current_price:,.1f}",
-                      annotation_font=dict(color="#FFFFFF", size=10, family=FONT_FAMILY),
-                      annotation_position="top right")
+                      annotation=dict(text=f"Current: ${current_price:,.1f}",
+                                      font=dict(color="#FFFFFF", size=10, family=FONT_FAMILY),
+                                      position="top right"))
 
     layout = _base_layout("Monte Carlo — Implied Share Price Distribution", height=420)
     layout["xaxis"]["title"] = "Implied Share Price ($)"
@@ -240,9 +240,9 @@ def plot_option_payoff(
                              line=dict(color=color, width=2)))
 
     fig.add_vline(x=strike, line=dict(color=MUTED, width=1, dash="dot"),
-                  annotation_text="K", annotation_font=dict(color=MUTED, size=10))
+                  annotation=dict(text="K", font=dict(color=MUTED, size=10)))
     fig.add_vline(x=spot, line=dict(color=color, width=1, dash="dot"),
-                  annotation_text="S", annotation_font=dict(color=color, size=10))
+                  annotation=dict(text="S", font=dict(color=color, size=10)))
 
     layout = _base_layout(f"European {option_type.capitalize()} — Payoff vs Current Price", height=380)
     layout["xaxis"]["title"] = "Spot Price ($)"
@@ -334,7 +334,7 @@ def plot_vol_heatmap(
     ))
 
     fig.add_vline(x=strike, line=dict(color=MUTED, width=1.5, dash="dash"),
-                  annotation_text="Strike", annotation_font=dict(color=MUTED, size=10))
+                  annotation=dict(text="Strike", font=dict(color=MUTED, size=10)))
 
     layout = _base_layout(
         f"Option Price — Spot × Volatility Heatmap ({option_type.capitalize()})", height=420
@@ -383,10 +383,10 @@ def plot_bs_monte_carlo(
         row=1, col=2,
     )
     fig.add_vline(x=K, line=dict(color=MUTED, width=1.5, dash="dash"),
-                  annotation_text="K", annotation_font=dict(color=MUTED, size=9),
+                  annotation=dict(text="K", font=dict(color=MUTED, size=9)),
                   row=1, col=2)
     fig.add_vline(x=S, line=dict(color=ACCENT_BLUE, width=1.5, dash="dot"),
-                  annotation_text="S₀", annotation_font=dict(color=ACCENT_BLUE, size=9),
+                  annotation=dict(text="S₀", font=dict(color=ACCENT_BLUE, size=9)),
                   row=1, col=2)
 
     # Panel 3: P&L distribution
